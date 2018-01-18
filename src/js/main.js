@@ -8,6 +8,7 @@ import scene from './scene'
 import controls from './controls'
 import paginator from './paginator'
 import container from './container'
+import requester from './requester'
 
 const root = document.querySelector('#root');
 const pages = data.get('pages').map(p => page(p))
@@ -26,3 +27,5 @@ root.appendChild(
     })
   ).c.$
 )
+
+requester().handshake().then(json => console.log(json.appName))
