@@ -5,6 +5,8 @@ export default async (root) => {
   const c = container('div', ['home-app'])
 
   function load() {
+    document.querySelector('title').innerHTML = 'Bree - make simple web presentations'
+
     c.$.innerHTML += `
       <div class="jumbotron">
         <div class="header container">
@@ -61,7 +63,7 @@ export default async (root) => {
             <h2>Check out our demo</h2>
             <p>Take a look at our simple demo presentation, where we demonstrate the basic controls for a perfect presentation with Bree.</p>
             <hr>
-            <a class="btn btn-primary btn-lg" href="http://localhost:8080/#!p/5a60a5b96915eb0706c258ba">Demo</a>
+            <a class="btn btn-primary btn-lg" href="/#!p/5a60a5b96915eb0706c258ba">Demo</a>
           </div>
         </div>
       </div>

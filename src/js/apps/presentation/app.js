@@ -9,6 +9,7 @@ import requester from './requester'
 import scene from './scene'
 
 export default async (root, id, editToken) => {
+  let presentationApp = null
   const c = container('div', ['presentation-app'])
 
   function load() {
@@ -27,15 +28,17 @@ export default async (root, id, editToken) => {
     const pages = data.get('pages').map(p => page(p))
     const globalStyle = data.get('style')
 
-    c.$.appendChild(
-      presentation(
+    presentationApp = presentation(
         data,
         scene(data)
           .globalStyle(globalStyle)
           .pages(pages),
         controls(data),
         paginator(data)
-      ).c.$
+      )
+
+    c.$.appendChild(
+      presentationApp.c.$
     )
   }
 
@@ -46,6 +49,7 @@ export default async (root, id, editToken) => {
   function unload() {
     console.log('unloading presentation app')
     root.innerHTML = ''
+    presentationApp.removeListeners()
   }
 
   return {

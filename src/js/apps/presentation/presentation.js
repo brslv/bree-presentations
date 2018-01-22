@@ -18,7 +18,9 @@ export default (data, scene, controls, paginator) => {
   document.querySelector('title').innerHTML = data.get('title')
 
   // Register fullscreen listener
-  window.addEventListener('keyup', (e) => {
+  window.addEventListener('keyup', onKeyUp)
+
+  function onKeyUp(e) {
     if (parseInt(e.which) === 70) {
       if (isInFullscreen()) {
         exitFullscreen()
@@ -26,7 +28,8 @@ export default (data, scene, controls, paginator) => {
         enterFullscreen()
       }
     }
-  })
+  }
+
 
   function enterFullscreen() {
     if (document.documentElement.requestFullscreen) {
@@ -59,8 +62,13 @@ export default (data, scene, controls, paginator) => {
       || document.msFullscreenElement
   }
 
+  function removeListeners() {
+    window.removeEventListener('keyup', onKeyUp)
+  }
+
   return {
-    c
+    c,
+    removeListeners
   }
 }
 
