@@ -1,10 +1,9 @@
-import data from './data'
-import container from './container'
+import container from '../../libs/container'
 
-export default ({ hidden } = { hidden: false }) => {
+export default (data) => {
   const c = container('div', [
     'paginator',
-    hidden ? 'hidden' : 'visible'
+    data.get('paginator.hidden') ? 'hidden' : 'visible'
   ])
 
   c.$.innerHTML = `${data.get('activeIndex') + 1}/${data.get('pages').length}`

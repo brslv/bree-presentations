@@ -1,7 +1,6 @@
-import data from './data'
-import container from './container'
+import container from '../../libs/container'
 
-export default () => {
+export default (data) => {
   const c = container('div', ['scene'])
   let _pages = []
 

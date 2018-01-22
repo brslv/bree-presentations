@@ -1,7 +1,6 @@
-import data from './data'
-import container from './container'
+import container from '../../libs/container'
 
-export default (title, scene, controls, paginator) => {
+export default (data, scene, controls, paginator) => {
   const c = container('div', ['app'])
 
   c.$.appendChild(scene.c.$)
@@ -16,7 +15,7 @@ export default (title, scene, controls, paginator) => {
   })
 
   // Set the presentation's title
-  document.querySelector('title').innerHTML = title
+  document.querySelector('title').innerHTML = data.get('title')
 
   // Register fullscreen listener
   window.addEventListener('keyup', (e) => {

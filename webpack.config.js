@@ -7,17 +7,31 @@ const extractText = new ExtractTextPlugin({
 })
 
 module.exports = {
-  entry: './src/js/main.js',
+  entry: ['babel-polyfill', './src/js/main.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.scss$/,
         use: extractText.extract({
-          use: [ 'css-loader' ]
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'sass-loader' }
+          ]
         })
       },
       {

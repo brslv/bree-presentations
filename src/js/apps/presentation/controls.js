@@ -1,10 +1,9 @@
-import data from './data'
-import container from './container'
+import container from '../../libs/container'
 
-export default ({ hidden } = { hidden: false }) => {
+export default (data) => {
   const c = container('div', [
     'controls',
-    hidden ? 'hidden' : 'visible'
+    data.get('controls.hidden') ? 'hidden' : 'visible'
   ])
 
   c.$.innerHTML = `<div class="prev">Prev</div><div class="next">Next</div>`

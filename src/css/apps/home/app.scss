@@ -1,0 +1,22 @@
+.home-app {
+  @import '~bootstrap/dist/css/bootstrap'; // import from node_modules
+
+  font-family: sans-serif;
+  line-height: 1.7em;
+  font-size: 18px;
+
+  .header {
+    padding: 4em 0;
+  }
+
+  .awesomeness,
+  .demo {
+    margin: 2em 0;
+  }
+
+  .footer {
+    border-top: 1px solid #eee;
+    text-align: center;
+    padding: 1em 0;
+  }
+}

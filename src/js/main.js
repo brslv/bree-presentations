@@ -1,31 +1,36 @@
-import '../css/normalize.css'
-import '../css/main.css'
+import '../css/normalize.scss'
 
-import app from './app'
-import page from './page'
-import data from './data'
-import scene from './scene'
-import controls from './controls'
-import paginator from './paginator'
-import container from './container'
-import requester from './requester'
+import makePresentationApp from './apps/presentation/app'
+import makeCreatorApp from './apps/creator/app'
+import makeHomeApp from './apps/home/app'
+import runAppLoader from './libs/runAppLoader'
 
-const root = document.querySelector('#root');
-const pages = data.get('pages').map(p => page(p))
-const globalStyle = data.get('style')
-root.appendChild(
-  app(
-    data.get('title'),
-    scene()
-      .globalStyle(globalStyle)
-      .pages(pages),
-    controls({
-      hidden: data.get('controls.hidden')
-    }),
-    paginator({
-      hidden: data.get('paginator.hidden')
-    })
-  ).c.$
-)
+(async () => {
+  let currentApp = null
+  const root = document.querySelector('#root')
 
-requester().handshake().then(json => console.log(json.appName))
+  async function loadCreatorApp() {
+    await loadApp(makeCreatorApp)
+  }
+
+  async function loadPresentationApp(id, editToken = null) {
+    await loadApp(makePresentationApp, id, editToken)
+  }
+
+  async function loadHomeApp() {
+    await loadApp(makeHomeApp)
+  }
+
+  // TODO extract in a lib file, maybe?
+  async function loadApp(appMaker, ...params) {
+    if (currentApp) {
+      currentApp.unload()
+    }
+
+    currentApp = await appMaker(root, ...params)
+    currentApp.load()
+  }
+
+
+  runAppLoader(loadHomeApp, loadPresentationApp, loadCreatorApp) // based on url hash
+})()

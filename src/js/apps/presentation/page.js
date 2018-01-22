@@ -1,4 +1,4 @@
-import container from './container'
+import container from '../../libs/container'
 
 export default ({ key = '', content, style = '' }) => {
   const c = container('div', ['page', `page__${key}`])
